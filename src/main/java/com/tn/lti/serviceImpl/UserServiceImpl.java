@@ -1,5 +1,6 @@
 package com.tn.lti.serviceImpl;
 
+import com.google.common.base.Strings;
 import com.tn.lti.JWT.CustomerUsersDetailsService;
 import com.tn.lti.JWT.JwtFilter;
 import com.tn.lti.JWT.JwtUtil;
@@ -153,6 +154,7 @@ public class UserServiceImpl implements UserService {
         return CommandeUtils.getResponseEntity(CommandConstants.SOMETHING_WENT_WRONG,HttpStatus.INTERNAL_SERVER_ERROR);
 }
 
+
     private void sendMailToAllAdmin(String status, String user, List<String> allAdmin) {
         allAdmin.remove(jwtFilter.getCurrentUser());
         if(status!= null && status.equalsIgnoreCase("true")){
@@ -162,6 +164,44 @@ public class UserServiceImpl implements UserService {
             emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account Disabled", "USER:-" + user + " \n is disabled by \nADMIN:-" + jwtFilter.getCurrentUser() , allAdmin);
 
         }
+    }
+
+    @Override
+    public ResponseEntity<String> checkToken() {
+        return CommandeUtils.getResponseEntity("true", HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> changPassword(Map<String, String> requestMap) {
+        try{
+            User userObj = userDao.findByEmail(jwtFilter.getCurrentUser());
+            if(!userObj.equals(null) ) {
+                if(userObj.getPassword().equals(requestMap.get("oldPassword"))){
+                    userObj.setPassword(requestMap.get("newPassword"));
+                    userDao.save(userObj);
+                    return CommandeUtils.getResponseEntity("Password updated successfully.", HttpStatus.OK);
+                }
+                return CommandeUtils.getResponseEntity("Incorrect Old Password",HttpStatus.BAD_REQUEST);
+            }
+                return CommandeUtils.getResponseEntity(CommandConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return CommandeUtils.getResponseEntity(CommandConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {
+        try{
+            User user = userDao.findByEmail(requestMap.get("email"));
+            if(!Objects.isNull(user) && !Strings.isNullOrEmpty(user.getEmail()))
+                emailUtils.forgotMail(user.getEmail(),"Credentials by command management system",user.getPassword());
+            return CommandeUtils.getResponseEntity("Check your mail Credentials.", HttpStatus.OK);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+            return CommandeUtils.getResponseEntity(CommandConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
 
