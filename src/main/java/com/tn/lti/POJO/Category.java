@@ -13,8 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.io.Serializable;
 
-@NamedQuery(name="Category.getAllCategory" , query = "select c from Category c")
-//@NamedQuery(name="Category.getAllCategory" , query = "select c from Category c where c.id in (select p.category from Product p where p.status='true') ")
+//@NamedQuery(name="Category.getAllCategory" , query = "select c from Category c")
+@NamedQuery(name="Category.getAllCategory" , query = "select c from Category c where c.id in (select p.category from Product p where p.status='true') ")
 
 
 @Data
@@ -25,6 +25,9 @@ import java.io.Serializable;
 //@AllArgsConstructor
 //@NoArgsConstructor
 public class Category implements Serializable {
+
+    private static final long serialVersionUID =1L;
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
