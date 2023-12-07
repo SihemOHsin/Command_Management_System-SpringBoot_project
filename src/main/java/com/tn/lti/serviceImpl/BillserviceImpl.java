@@ -63,7 +63,7 @@ public class BillserviceImpl implements Billservice {
                 document.open();
                 setBorderPdf(document);
 
-                Paragraph parg = new Paragraph("COMMANDE SOH" + requestMap.get("name") +  "\n \n \n", getFont("header"));
+                Paragraph parg = new Paragraph("Commande " + requestMap.get("name") +  "\n \n \n", getFont("header"));
                 parg.setAlignment(Element.ALIGN_CENTER);
                 document.add(parg);
 
@@ -81,8 +81,8 @@ public class BillserviceImpl implements Billservice {
 
                 document.add(table);
 
-                Paragraph footer = new Paragraph("Totale TTC : " + requestMap.get("totalAmount") + "\n" +
-                        "Merci, Bonne journée", getFont("data"));
+                Paragraph footer = new Paragraph("Totale TTC : " + requestMap.get("totalAmount") + "\n \n" +
+                        "Signature ", getFont("data"));
                 document.add(footer);
                 document.close();
 
@@ -204,7 +204,7 @@ public class BillserviceImpl implements Billservice {
         rec.enableBorderSide(2);
         rec.enableBorderSide(4);
         rec.enableBorderSide(8);
-        rec.setBorderColor(BaseColor.BLACK);
+        rec.setBorderColor(BaseColor.MAGENTA);
         rec.setBorderWidth(1);
         document.add(rec);
 
@@ -214,7 +214,7 @@ public class BillserviceImpl implements Billservice {
         log.info("inside getFont");
         switch (type) {
             case "header":
-                Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLDOBLIQUE, 18, BaseColor.BLACK);
+                Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLDOBLIQUE, 18, BaseColor.MAGENTA);
                 headerFont.setStyle(Font.BOLD);
                 return headerFont;
             case "data":
