@@ -42,7 +42,7 @@ public class EmailUtils {
         helper.setFrom("sihemtest3@gmail.com");
         helper.setTo(to);
         helper.setSubject(subject);
-        String htmlMsg = "<p><b>Your Login details for Cafe Management System</b><br><b>Email: </b> " + to + " <br><b>Password: </b> " + password + "<br><a href=\"http://localhost:4200/\">Click here to login</a></p>";
+        String htmlMsg = "<p><b>Your Login details for Command Management System</b><br><b>Email: </b> " + to + " <br><b>Password: </b> " + password + "<br><a href=\"http://localhost:4200/\">Click here to login</a></p>";
         message.setContent(htmlMsg,"text/html");
         emailSender.send(message);
 
