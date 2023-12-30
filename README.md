@@ -2,7 +2,7 @@
 
 This project is a demonstration of an Order Management System with the following dependencies:
 
-- **Java:** 8
+- **Java:** 11
 - **Spring Boot:** 2.6.3
 - **Angular CLI:** 11.2.9
 - **Node:** 14.21.3
