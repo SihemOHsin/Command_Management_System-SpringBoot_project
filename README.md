@@ -11,11 +11,11 @@ This project is a demonstration of an Order Management System with the following
 
 ### Backend
 
-The backend is hosted on AWS Elastic Beanstalk. You can access it at [http://soh-orders.eu-north-1.elasticbeanstalk.com](http://soh-orders.eu-north-1.elasticbeanstalk.com).
+The backend is hosted on AWS Elastic Beanstalk. 
 
 ### Frontend
 
-The frontend is hosted on AWS S3. You can access it at [http://ng-soh-orders-system.s3-website.eu-north-1.amazonaws.com](http://ng-soh-orders-system.s3-website.eu-north-1.amazonaws.com).
+The frontend is hosted on AWS S3. 
 
 ## Execution Demo
 
